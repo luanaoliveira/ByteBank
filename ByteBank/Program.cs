@@ -6,9 +6,28 @@ namespace ByteBank
     {
         public string name { get; set; }
         public string cpf { get; set; }
+        public string email { get; set; }
         public double balance { get; set; }
+        public string password { get; set; }
     }
     public class Program {
+        static bool Login(Client[] clients)
+        {
+            Console.WriteLine(">>> Faça seu login <<<");
+            Console.WriteLine();
+            Console.Write("CPF: ");
+            string cpf = Console.ReadLine();
+            Console.Write("Senha: ");
+            string password = Console.ReadLine();
+
+            for(int i = 0; i < clients.Length; i++)
+            {
+                if (clients[i].cpf == cpf && clients[i].password == password)
+                    return true;
+            }
+
+            return false;
+        }
 
         static void Header()
         {
@@ -39,6 +58,10 @@ namespace ByteBank
             newClient.name = Console.ReadLine();
             Console.Write("Digite o cpf: ");
             newClient.cpf = Console.ReadLine();
+            Console.Write("Digite seu email: ");
+            newClient.email = Console.ReadLine();
+            Console.Write("Digite sua senha: ");
+            newClient.password = Console.ReadLine();
             newClient.balance = 0;
             return newClient;
         }
@@ -49,9 +72,22 @@ namespace ByteBank
             Console.WriteLine();
             for (int i = 0; i < clients.Length; i++)
             {
-                Console.WriteLine($"Index {i}");
+                Console.WriteLine($"# {i}");
                 Console.WriteLine($"Nome: {clients[i].name}");
                 Console.WriteLine($"CPF: {clients[i].cpf}");
+                Console.WriteLine($"Email: {clients[i].email}");
+                Console.WriteLine("------------------------------");
+            }
+            Console.WriteLine();
+            Console.ReadKey();
+        }
+
+        static void BalanceClient(Client[] clients)
+        {
+            for (int i = 0; i < clients.Length; i++)
+            {
+
+                Console.WriteLine($"Saldo: {clients[i].balance}");
                 Console.WriteLine("----");
             }
             Console.WriteLine();
@@ -60,7 +96,33 @@ namespace ByteBank
         public static void Main(string[] args)
         {
             Client[] clients = new Client[0];
+            Client userAdmin = new Client();
+            userAdmin.cpf = "042.203.515-74";
+            userAdmin.password = "admin";
+            userAdmin.email = "admin@admin.com";
+            userAdmin.name = "Admin";
+            userAdmin.balance = 0;
+
+            clients = clients.Append(userAdmin).ToArray();
+
             int option;
+            bool isLogin = false;
+            bool isLoginError = false; 
+
+            do
+            {
+                Console.Clear();
+                if(isLoginError)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Cpf ou senha inválido, tente novamente!");
+                    Console.WriteLine();
+                }
+                    
+                isLogin = Login(clients);
+                isLoginError = !isLogin;
+
+            } while (!isLogin);
 
             do
             {
@@ -78,6 +140,10 @@ namespace ByteBank
                     case 2:
                         Console.Clear();
                         ListClients(clients);
+                        break;
+                    case 3:
+                        Console.Clear();
+                        BalanceClient(clients);
                         break;
                 }
                 
