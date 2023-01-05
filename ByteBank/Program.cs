@@ -1,8 +1,9 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Net;
+using System.Runtime.CompilerServices;
 
 namespace ByteBank
 {
-    public struct Client
+    public class Client
     {
         public string name { get; set; }
         public string cpf { get; set; }
@@ -66,6 +67,57 @@ namespace ByteBank
             return newClient;
         }
 
+    static Client getClient(Client[] clients, string cpf)
+        {
+            for (int i = 0; i < clients.Length; i++)
+            {
+                if (clients[i].cpf == cpf)
+                    return clients[i];
+            }
+            return null;
+        }
+        
+
+    static void DepositAmounAtAccount(Client[] clients)
+        {
+            Console.Write("Digite o CPF da conta: ");
+            string cpf = Console.ReadLine();
+            Client client = getClient(clients, cpf);
+            
+            Console.Write("Digite o valor a ser depositado: ");
+            double amount = double.Parse(Console.ReadLine());
+            client.balance += amount;
+        }
+
+        static void WithdrawAmountAtAccount(Client[] clients)
+        {
+            Console.Write("Digite o CPF da conta: ");
+            string cpf = Console.ReadLine();
+            Client client = getClient(clients, cpf);
+
+            Console.Write("Digite o valor que você deseja sacar: ");
+            double amount = double.Parse(Console.ReadLine());
+            client.balance -= amount;
+        }
+
+        static void TransferAmountAtAccount(Client[] clients)
+        {
+            Console.Write("Digite o CPF da conta: ");
+            string cpf1 = Console.ReadLine();
+            Client client1 = getClient(clients, cpf1);
+
+            Console.Write("Digite o valor que você deseja transferir: ");
+            double amount = double.Parse(Console.ReadLine());
+            client1.balance -= amount;
+
+            Console.WriteLine("Digite o CPF da conta que deseja transferir: ");
+            string cpf2 = Console.ReadLine();
+            Client client2 = getClient(clients, cpf2);
+
+            client2.balance += amount;
+
+        }
+
         static void ListClients (Client[] clients)
         {
             Console.WriteLine("Lista de clientes");
@@ -76,6 +128,7 @@ namespace ByteBank
                 Console.WriteLine($"Nome: {clients[i].name}");
                 Console.WriteLine($"CPF: {clients[i].cpf}");
                 Console.WriteLine($"Email: {clients[i].email}");
+                Console.WriteLine($"Saldo: {clients[i].balance}");
                 Console.WriteLine("------------------------------");
             }
             Console.WriteLine();
@@ -144,6 +197,18 @@ namespace ByteBank
                     case 3:
                         Console.Clear();
                         BalanceClient(clients);
+                        break;
+                    case 4: 
+                        Console.Clear();
+                        DepositAmounAtAccount(clients);
+                        break;
+                    case 5:
+                        Console.Clear();
+                        WithdrawAmountAtAccount(clients);
+                        break;
+                    case 6:
+                        Console.Clear();
+                        TransferAmountAtAccount(clients);
                         break;
                 }
                 
