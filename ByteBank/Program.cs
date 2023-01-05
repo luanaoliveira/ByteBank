@@ -98,6 +98,7 @@ namespace ByteBank
             Console.Write("Digite o valor que você deseja sacar: ");
             double amount = double.Parse(Console.ReadLine());
             client.balance -= amount;
+<<<<<<< HEAD
         }
 
         static void TransferAmountAtAccount(Client[] clients)
@@ -115,6 +116,8 @@ namespace ByteBank
             Client client2 = getClient(clients, cpf2);
 
             client2.balance += amount;
+=======
+>>>>>>> ffeae5fcc7999864461cd5c513d142487c6160da
 
         }
 
@@ -206,10 +209,13 @@ namespace ByteBank
                         Console.Clear();
                         WithdrawAmountAtAccount(clients);
                         break;
+<<<<<<< HEAD
                     case 6:
                         Console.Clear();
                         TransferAmountAtAccount(clients);
                         break;
+=======
+>>>>>>> ffeae5fcc7999864461cd5c513d142487c6160da
                 }
                 
 
