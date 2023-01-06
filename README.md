@@ -1,5 +1,8 @@
 # ByteBank
 
+![Captura de tela 2023-01-06 204538](https://user-images.githubusercontent.com/7728584/211118408-297c22c6-0576-4561-830b-d025e5da134d.png)
+
+
 A aplicação inicia com um usuário administrador, o qual pode cadastrar outros usuários clientes na aplicação. Uma vez cadastrado um novo cliente, 
 pode-se fazer o logout e acessar a aplicação com o novo usuário que foi cadastrado pelo admin.
 
