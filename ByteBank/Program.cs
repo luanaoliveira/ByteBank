@@ -43,7 +43,7 @@ namespace ByteBank
             Console.WriteLine("4 - Depositar na conta de um cliente");
             Console.WriteLine("5 - Sacar da conta de um cliente");
             Console.WriteLine("6 - Transferir entre contas");
-            Console.WriteLine("0 - Sair do programa");
+            Console.WriteLine("7 - Logout");
             Console.WriteLine();
             Console.Write("Opção: ");
             return int.Parse(Console.ReadLine());
@@ -76,7 +76,6 @@ namespace ByteBank
             }
             return null;
         }
-        
 
     static void DepositAmounAtAccount(Client[] clients)
         {
@@ -98,28 +97,43 @@ namespace ByteBank
             Console.Write("Digite o valor que você deseja sacar: ");
             double amount = double.Parse(Console.ReadLine());
             client.balance -= amount;
-<<<<<<< HEAD
         }
 
         static void TransferAmountAtAccount(Client[] clients)
         {
-            Console.Write("Digite o CPF da conta: ");
-            string cpf1 = Console.ReadLine();
-            Client client1 = getClient(clients, cpf1);
+            Client client1, client2;
+            double amount;
+            bool isValidAmount = true;
+            do
+            {
+                Console.Clear();
+                if (!isValidAmount)
+                {
+                    Console.WriteLine("Saldo insulficiente. Tente um valor menor.");
+                    Console.WriteLine();
+                }
 
-            Console.Write("Digite o valor que você deseja transferir: ");
-            double amount = double.Parse(Console.ReadLine());
+                Console.Write("Digite o CPF da conta: ");
+                string cpf1 = Console.ReadLine();
+                client1 = getClient(clients, cpf1);
+
+                Console.Write("Digite o valor que você deseja transferir: ");
+                amount = double.Parse(Console.ReadLine());
+
+                Console.Write("Digite o CPF da conta para a qual deseja transferir: ");
+                string cpf2 = Console.ReadLine();
+                client2 = getClient(clients, cpf2);
+                
+                isValidAmount = amount <= client1.balance;
+
+                
+            } while (!isValidAmount);
+
             client1.balance -= amount;
-
-            Console.WriteLine("Digite o CPF da conta que deseja transferir: ");
-            string cpf2 = Console.ReadLine();
-            Client client2 = getClient(clients, cpf2);
-
             client2.balance += amount;
-=======
->>>>>>> ffeae5fcc7999864461cd5c513d142487c6160da
-
         }
+
+        
 
         static void ListClients (Client[] clients)
         {
@@ -209,13 +223,11 @@ namespace ByteBank
                         Console.Clear();
                         WithdrawAmountAtAccount(clients);
                         break;
-<<<<<<< HEAD
+
                     case 6:
                         Console.Clear();
                         TransferAmountAtAccount(clients);
                         break;
-=======
->>>>>>> ffeae5fcc7999864461cd5c513d142487c6160da
                 }
                 
 
